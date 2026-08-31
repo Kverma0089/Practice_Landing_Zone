@@ -1,19 +1,10 @@
-name: Terraform Preprod
-
-on:
-  push:
-    branches:
-      - feature/landing-zone
-  pull_request:
-    branches:
-      - feature/landing-zone
-
 jobs:
   terraform:
     runs-on: self-hosted
 
     defaults:
       run:
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         working-directory: environment/preprod
 
     steps:
