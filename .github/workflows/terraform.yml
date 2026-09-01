@@ -1,0 +1,37 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches:
+      - feature/landing-zone
+    paths:
+      - 'environment/preprod/**'
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    runs-on: self-hosted
+    defaults:
+      run:
+        shell: powershell -ExecutionPolicy Bypass -File {0}
+        working-directory: environment/preprod
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.8
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
