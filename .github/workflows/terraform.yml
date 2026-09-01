@@ -19,19 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.9.8
-
       - name: Terraform Init
-        run: terraform init
+        run: '& "C:\Users\kshitij verma\Downloads\terraform_1.15.5_windows_amd64\terraform.exe" init'
 
       - name: Terraform Validate
-        run: terraform validate
+        run: '& "C:\Users\kshitij verma\Downloads\terraform_1.15.5_windows_amd64\terraform.exe" validate'
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: '& "C:\Users\kshitij verma\Downloads\terraform_1.15.5_windows_amd
