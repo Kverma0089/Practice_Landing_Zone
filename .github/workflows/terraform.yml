@@ -15,15 +15,24 @@ jobs:
       run:
         shell: powershell -ExecutionPolicy Bypass -File {0}
         working-directory: environment/preprod
+    env:
+      TF_EXE: C:\Users\kshitij verma\Downloads\terraform_1.15.5_windows_amd64\terraform.exe
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Terraform Init
-        run: '& "C:\Users\kshitij verma\Downloads\terraform_1.15.5_windows_amd64\terraform.exe" init'
+        run: >-
+          & "$env:TF_EXE" init
 
       - name: Terraform Validate
-        run: '& "C:\Users\kshitij verma\Downloads\terraform_1.15.5_windows_amd64\terraform.exe" validate'
+        run: >-
+          & "$env:TF_EXE" validate
 
       - name: Terraform Plan
-        run: '& "C:\Users\kshitij verma\Downloads\terraform_1.15.5_windows_amd
+        run: >-
+          & "$env:TF_EXE" plan -out=tfplan
+
+      - name: Terraform Apply
+        run: >-
+          & "$env:TF_EXE" apply -auto-approve tfplan
